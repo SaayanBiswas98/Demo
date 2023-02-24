@@ -205,6 +205,8 @@ export default function Input() {
         go.Shape,
         {
           figure: "hexagon",
+          strokeJoin: "bevel", 
+          strokeCap: "round",
           strokeWidth: 0,
           height: 100,
           width: 100,
@@ -216,6 +218,9 @@ export default function Input() {
           toLinkableSelfNode: false,
           toLinkableDuplicates: false,
           cursor: "pointer",
+          spot1: go.Spot.TopLeft,
+          spot2: go.Spot.BottomRight,
+          
         },
         new go.Binding("fill", "color")
       ),
@@ -223,6 +228,7 @@ export default function Input() {
       new go.Binding("location", "loc", go.Point.parse).makeTwoWay(
         go.Point.stringify
       ),
+      $(go.Shape ,{figure:'circle' ,fill:'red' ,width:10,height:97}),
       $(
         go.TextBlock,
         { margin: 8, editable: true },
