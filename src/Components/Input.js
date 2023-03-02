@@ -13,7 +13,7 @@ export default function Input() {
   ]);
 
   const [linkDataArray, setLinkDataArray] = useState([
-    { key: -5, from: 4, to: 3 },
+    { from: 4, to: 3 ,color:'red'},
   ]);
 
   const [skipsDiagramUpdate, setSkipsDiagramUpdate] = useState(false);
@@ -157,7 +157,7 @@ export default function Input() {
         new go.PathSegment(
           go.PathSegment.Line,
           points[i].x * w,
-          points[i].y * h
+          points[i].y * h,
         )
       );
     }
@@ -174,7 +174,7 @@ export default function Input() {
     return geo;
   });
   function getRandomColor() {
-    var colorArray = ["#66ffff", "#66ff99", "#ffff99", "#ff6666"];
+    var colorArray = ["red", "#66ff99", "#ffff99", "#ff6666"];
     let randomeval = Math.floor(Math.random() * 3);
     return colorArray[randomeval].toString();
   }
@@ -186,7 +186,7 @@ export default function Input() {
         text: "new node",
         color: getRandomColor(),
       },
-      model: $(go.GraphLinksModel, { linkKeyProperty: "key" }),
+      model: $(go.GraphLinksModel, { linkKeyProperty: "key"}),
     });
     diagram.nodeTemplate = $(
       go.Node,
@@ -225,7 +225,7 @@ export default function Input() {
         new go.Binding("fill", "color")
       ),
 
-      new go.Binding("location", "loc", go.Point.parse).makeTwoWay(
+      new go.Binding("location", "loc", go.Point.parse,'progress', progress => progress ? "#52ce60" /* green */ : 'black').makeTwoWay(
         go.Point.stringify
       ),
       $(go.Shape ,{figure:'circle' ,fill:'red' ,width:10,height:97}),
@@ -245,8 +245,8 @@ export default function Input() {
         relinkableTo: true,
         toShortLength: 3,
       },
-      $(go.Shape, { strokeWidth: 1.5 }),
-      $(go.Shape, { toArrow: "standard", stroke: "white" }),
+      $(go.Shape, { stroke:"red", strokeWidth: 1.5 }),
+      $(go.Shape, { toArrow: "standard" }),
       $(
         go.TextBlock,
         "",
@@ -256,7 +256,7 @@ export default function Input() {
           margin: 4,
           editable: true,
         },
-        new go.Binding("text").makeTwoWay()
+        new go.Binding("fill","color").makeTwoWay({color:'red'})
       )
     );
     return diagram;
